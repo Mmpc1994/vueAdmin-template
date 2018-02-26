@@ -5,18 +5,15 @@
   </div>
 </template>
 
-<script>
-import { mapGetters } from 'vuex'
+<script lang="ts">
+  import { Vue, Component, Prop } from "vue-property-decorator";
+  import { State, Getter } from 'vuex-class';
 
-export default {
-  name: 'dashboard',
-  computed: {
-    ...mapGetters([
-      'name',
-      'roles'
-    ])
+  @Component
+  export default class Dashbord extends Vue{
+    @Getter name: string;
+    @Getter roles: string[];
   }
-}
 </script>
 
 <style rel="stylesheet/scss" lang="scss" scoped>
