@@ -1,0 +1,31 @@
+@include b(popup) {
+  @include e(wrapper) {
+    position: fixed;
+    left: 0;
+    right: 0;
+    top: 0;
+    bottom: 0;
+    background-color: rgba(0,0,0,0.5);
+    z-index: 3;
+    overflow: hidden;
+  }
+
+  @include e(right) {
+    overflow: scroll;
+    height: 100%;
+    min-width: 375px;
+    padding: 24px;
+    position: absolute;
+    right: 0;
+    background-color: #fff;
+    transition: all 0.3s ease;
+    top: 50%;
+    transform: translate3d(0, -50%, 0);
+  }
+
+}
+
+.popup-enter,
+.popup-leave-active {
+  transform: translate3d(100%, -50%, 0);
+}

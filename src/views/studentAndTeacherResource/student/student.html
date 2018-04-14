@@ -1,0 +1,36 @@
+<div>
+  <el-card class="table-searchBar">
+    <form-builder :schema="query_schema" :model="model" >
+      <el-form-item slot="suffix">
+        <el-button type="primary">查询</el-button>
+      </el-form-item>
+    </form-builder>
+  </el-card>
+
+  <el-card style="margin-top: 15px">
+    <el-button type="primary" @click="before_add_new_student">新增</el-button>
+    <el-table :data="studentList" @row-click="get_student_info">
+      <el-table-column 
+        v-for="(title, index) in studentService.titles"
+        :key="index" 
+        :prop="title.prop" 
+        :label="title.label"></el-table-column>
+        <el-table-column label="操作">
+          <template slot-scope="scope">
+            <el-button type="text">编辑</el-button>
+            <el-button type="text">删除</el-button>
+          </template>
+        </el-table-column>
+    </el-table>
+  </el-card>
+
+  <popup :visible="visible" @close="visible = false">
+    <form-builder 
+      :schema="schema" 
+      :rules="rules"
+      :model="model" 
+      :options="options"
+      @submit="submit">
+    </form-builder>
+  </popup>
+</div>

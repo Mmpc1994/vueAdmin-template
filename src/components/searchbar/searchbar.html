@@ -1,0 +1,42 @@
+<el-form layout class="SearchBar" layout-wrap>
+  <slot name="prefix">
+
+  </slot>
+  
+  <el-form-item>
+    <el-select placeholder="组织架构">
+      <el-option label="1" value="1"></el-option>
+    </el-select>
+  </el-form-item>
+  <el-form-item>
+    <el-select placeholder="入学年份">
+      <el-option label="1" value="1"></el-option>
+    </el-select>
+  </el-form-item>
+  <el-form-item>
+    <el-select placeholder="毕业年份">
+      <el-option label="1" value="1"></el-option>
+    </el-select>
+  </el-form-item>
+  
+  <slot name="suffix">
+
+  </slot>
+
+  <el-form-item>
+    <el-input placeholder="学号"></el-input>
+  </el-form-item>
+
+
+  <!-- <el-form-item label="企业名">
+    <el-input placeholder="请输入企业名"></el-input>
+  </el-form-item>
+
+  <el-form-item label="学号">
+    <el-input placeholder="请输入学号"></el-input>
+  </el-form-item> -->
+
+  <el-form-item>
+    <el-button type="primary">搜索</el-button>
+  </el-form-item>
+</el-form>

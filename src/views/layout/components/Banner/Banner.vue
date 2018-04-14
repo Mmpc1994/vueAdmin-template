@@ -14,5 +14,6 @@
 
 <style lang="scss">
   /* @import "src/styles/variables","src/styles/mixins"; */
+  @import "src/styles/variables";
   @import "./Banner.scss";
 </style>

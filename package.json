@@ -14,8 +14,9 @@
   },
   "dependencies": {
     "axios": "0.17.1",
-    "element-ui": "2.0.8",
+    "element-ui": "2.3.2",
     "js-cookie": "2.2.0",
+    "lodash": "^4.17.5",
     "normalize.css": "7.0.0",
     "nprogress": "0.2.0",
     "vue": "2.5.10",
@@ -23,6 +24,7 @@
     "vuex": "3.0.1"
   },
   "devDependencies": {
+    "@types/lodash": "^4.14.106",
     "@types/node": "^9.4.6",
     "autoprefixer": "7.2.3",
     "babel-core": "6.26.0",

@@ -1,0 +1,14 @@
+@include b(auth) {
+  @include e(form) {
+    margin-top: 60px;
+
+    .el-cascader {
+      width: 100%;
+    }
+  }
+  
+  @include e(button) {
+    width: 100%;
+  }
+
+}

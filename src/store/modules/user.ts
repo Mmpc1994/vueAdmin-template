@@ -3,7 +3,7 @@ import { getToken, setToken, removeToken } from '@/utils/auth'
 import { Commit } from 'vuex';
 
 interface State {
-  token: string;
+  token?: string;
   name: string;
   avatar: string;
   roles: string[]

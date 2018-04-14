@@ -1,0 +1,9 @@
+@include b(school) {
+  @include e(searchBar) {
+    display: flex;
+    flex-wrap: wrap;
+    .el-form-item {
+      margin-right: 5px;
+    }
+  }
+}

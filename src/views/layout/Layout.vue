@@ -1,6 +1,6 @@
 <template>
   <div class="app-wrapper" :class="{hideSidebar:!sidebar.opened}">
-    <Banner></Banner>
+    <!-- <Banner></Banner> -->
     <sidebar class="sidebar-container"></sidebar>
     <div class="main-container">
       <navbar></navbar>
@@ -29,7 +29,7 @@ export default {
 </script>
 
 <style rel="stylesheet/scss" lang="scss" scoped>
-@import "src/styles/mixin.scss";
+@import "src/styles/mixins.scss";
 .app-wrapper {
   @include clearfix;
   position: relative;

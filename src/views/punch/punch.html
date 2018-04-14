@@ -1,0 +1,37 @@
+<div class="punch">
+
+  <el-card>
+    <searchBar>
+      <template slot="suffix">
+        <el-form-item>
+          <el-select>
+            <el-option label="1" value="1"></el-option>
+          </el-select>
+        </el-form-item>
+      </template>
+    </searchBar>
+  </el-card>
+
+
+  <el-card style="margin-top: 15px">
+    <el-tabs type="border-card">
+      <el-tab-pane label="每日签到统计">
+        <el-table>
+          <el-table-column v-for="(title, index) in userTable.tableTitle"
+            :key="index"
+            :prop="title.prop"
+            :label="title.label"></el-table-column>
+        </el-table>
+      </el-tab-pane>
+      <el-tab-pane label="登入签到汇总">
+        <el-table>
+          <el-table-column v-for="(title, index) in userTable.tableTitle"
+            :key="index"
+            :prop="title.prop"
+            :label="title.label"></el-table-column>
+        </el-table>
+      </el-tab-pane>
+    </el-tabs>
+  </el-card>
+
+</div>

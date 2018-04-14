@@ -1,6 +1,6 @@
 import Vue from 'vue'
 import Vuex from 'vuex'
-import app from './modules/app'
+import app from './modules/app.ts'
 import user from './modules/user.ts'
 import getters from './getters'
 

@@ -1,0 +1,32 @@
+<el-form 
+  class="form-builder"
+  ref="formBuilder"
+  :class="[options.formClass]"
+  :model="model"
+  :rules="rules"
+  :label-position="options.labelPosition"
+  :label-width="options.labelWidth"
+  :label-suffix="options.labelSuffix"
+  :show-message="options.showMessage"
+  :inline-message="options.inlineMessage"
+  :status-icon="options.statusIcon"
+  :size="options.size"
+  :inline="options.inline">
+  <slot name="prefix">
+
+  </slot>
+  <el-form-item 
+    v-for="(field, index) in fields" 
+    :prop="field.model"
+    :label="options.label ? field.label : null"
+    :required="field.required"
+    :key="index">
+    <component :is="getFieldType(field)" :schema="field" :model="model"></component>
+  </el-form-item>
+  
+  <slot name="suffix">
+    <el-form-item>
+      <el-button type="primary" @click="submit">保存</el-button>
+    </el-form-item>
+  </slot>
+</el-form>

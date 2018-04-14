@@ -1,0 +1,28 @@
+<div class="app-container">
+  <el-card>
+    <el-form>
+      <el-form-item label="是否审核">
+        <el-select>
+          <el-option label="1" value="1"></el-option>
+        </el-select>
+      </el-form-item>
+    </el-form>
+  </el-card>
+
+  <el-card style="margin-top: 15px">
+    <el-table>
+      <el-table-column 
+        v-for="(title, index) in planTable.tableTitle"
+        :label="title.label"
+        :prop="title.prop"
+        :key="index"
+        >
+      </el-table-column>
+      <el-table-column label="操作">
+        <template slot-scope="row">
+          
+        </template>
+      </el-table-column>
+    </el-table>
+  </el-card>
+</div>

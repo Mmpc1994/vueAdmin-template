@@ -1,5 +1,6 @@
 @import './variables.scss';
-@import './mixin.scss';
+@import './mixins.scss';
+@import './layout.scss';
 @import './transition.scss';
 @import './element-ui.scss';
 @import './sidebar.scss';
@@ -9,10 +10,15 @@ body {
   -webkit-font-smoothing: antialiased;
   text-rendering: optimizeLegibility;
   font-family: Helvetica Neue, Helvetica, PingFang SC, Hiragino Sans GB, Microsoft YaHei, Arial, sans-serif;
+  background-color: #EDEFF0;
 }
 
 html {
   box-sizing: border-box;
+}
+
+body li {
+  list-style: none;
 }
 
 *,
@@ -38,6 +44,10 @@ a:hover {
   text-decoration: none;
 }
 
+a {
+  color: #0F9DEA;
+}
+
 .clearfix {
   &:after {
     visibility: hidden;
@@ -56,4 +66,24 @@ a:hover {
 
 .app-container {
   padding: 20px;
+}
+
+.form-builder {
+  .el-date-editor--date {
+    width: 100%
+  }
+
+  .el-select {
+    width: 100%;
+  }
+}
+
+.table-searchBar {
+  .el-form {
+    display: flex;
+    flex-wrap: wrap;
+  }
+  .el-form-item {
+    margin-right: 5px;
+  }
 }

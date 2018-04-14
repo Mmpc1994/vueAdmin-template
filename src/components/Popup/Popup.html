@@ -1,0 +1,7 @@
+<div class="cp-popup__wrapper" v-show="visible" @click.self="closePopup">
+  <transition name="popup">
+    <div class="cp-popup__right" v-show="visible">
+      <slot></slot>
+    </div>
+  </transition>
+</div>

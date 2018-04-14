@@ -1,3 +1,4 @@
+import './services/class_component_hooks';
 import Vue from 'vue'
 
 import 'normalize.css/normalize.css'// A modern alternative to CSS resets
