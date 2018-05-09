@@ -3,27 +3,41 @@ import store from './store'
 import NProgress from 'nprogress' // Progress 进度条
 import 'nprogress/nprogress.css'// Progress 进度条样式
 import { Message } from 'element-ui'
-import { getToken } from '@/utils/auth' // 验权
+import { getToken, getUserInfo } from '@/utils/auth.ts' // 验权
 
 const whiteList = ['/login'] // 不重定向白名单
 router.beforeEach((to, from, next) => {
-  NProgress.start()
-  next()
+  NProgress.start();
+  if (whiteList.indexOf(to.path) !== -1) {
+    return next()
+  }
+  try {
+    if (getToken() && getUserInfo()) {
+      next()
+    }
+  } catch (e) {
+    console.log(e);
+    next({ path: '/login' })
+  }
   // if (getToken()) {
+  //   try {
+  //     getUserInfo();
+  //   } catch(e) {
+
+  //   }
+  //   console.log(to.path);
   //   if (to.path === '/login') {
   //     next({ path: '/' })
   //   } else {
-  //     if (store.getters.roles.length === 0) {
-  //       store.dispatch('GetInfo').then(res => { // 拉取用户信息
+  //     try {
+  //       const userInfo = getUserInfo();
+  //       console.log(object);
+  //       if (userInfo) {
   //         next()
-  //       }).catch(() => {
-  //         store.dispatch('FedLogOut').then(() => {
-  //           Message.error('验证失败,请重新登录')
-  //           next({ path: '/login' })
-  //         })
-  //       })
-  //     } else {
-  //       next()
+  //       }
+  //     } catch(e) {
+  //       console.log(1);
+  //       next({ path: '/login' })
   //     }
   //   }
   // } else {

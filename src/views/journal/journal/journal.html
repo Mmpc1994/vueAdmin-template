@@ -1,0 +1,26 @@
+<div>
+  <el-card>
+    <el-tabs @tab-click="onTabClick">
+      <el-tab-pane label="看日志">
+        <div layout>
+          <div flex>
+            <el-tag 
+              v-for="(item, index) in options" 
+              :key="index"
+              @click.native="setJournalType(item.label)"
+              style="margin-right: 10px">{{item.label}}</el-tag>
+          </div>
+          <div style="text-align: right;" flex>
+            <el-button icon="el-icon-edit" size="small"></el-button>
+          </div>
+        </div>
+      </el-tab-pane>
+      <el-tab-pane label="写日志"></el-tab-pane>
+      <!-- <el-tab-pane label="日志报表"></el-tab-pane> -->
+    </el-tabs>
+  </el-card>
+  
+  <el-card style="margin-top: 15px">
+    <router-view></router-view>
+  </el-card>
+</div>

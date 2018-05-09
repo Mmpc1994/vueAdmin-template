@@ -76,19 +76,6 @@ export const constantRouterMap = [
     ]
   },
   {
-    path: '/school',
-    hidden: true,
-    component: Layout,
-    children: [
-      {
-        path: 'create',
-        name: 'SchoolCreate',
-        component: () => import('@/views/school_create/school_create'),
-        meta: { title: '添加学校', icon: 'dashboard' }
-      }
-    ]
-  },
-  {
     path: '/studentAndTeacherResource',
     component: Layout,
     redirect: '/studentAndTeacherResource/major',
@@ -120,158 +107,85 @@ export const constantRouterMap = [
   },
 
   {
-    path: '/trainee',
+    path: '/journal',
     component: Layout,
+    redirect: '/journal/index/read',
+    index: true,
+    name: 'Journal',
+    meta: {
+      name: '教师工作管理',
+      icon: 'dashboard'
+    },
     children: [
       {
         path: 'index',
-        name: 'trainee',
-        component: () => import('@/views/trainee/trainee'),
-        meta: { title: '我的实习生', icon: 'peoples' }
+        name: 'Index',
+        // redirect: 'index/read',
+        component: () => import('@/views/journal/journal/journal.vue'),
+        meta: { title: '教师工作管理', icon: 'dashboard' },
+        children: [{
+          path: 'read',
+          name: 'Read',
+          component: () => import('@/views/journal/readJournal/readJournal.vue'),
+          meta: {
+            title: '看日志',
+            icon: 'dashboard'
+          }
+        }, {
+          path: 'write',
+          name: 'Write',
+          component: () => import('@/views/journal/writeJournal/writeJournal.vue'),
+          meta: {
+            title: '写日志',
+            icon: 'dashboard'
+          }
+        }]
       }
     ]
   },
-
-  {
-    path: '/logger',
-    component: Layout,
-    children: [
-      {
-        path: 'index',
-        name: 'logger',
-        component: () => import('@/views/logger/logger'),
-        meta: { title: '教师工作记录管理', icon: 'example' }
-      }
-    ]
-  },
-
-  {
-    path: '/session',
-    component: Layout,
-    children: [
-      {
-        path: 'index',
-        name: 'Session',
-        component: () => import('@/views/marking/session/session'),
-        meta: { title: '学期总结批阅', icon: 'example' }
-      }
-    ]
-  },
-
 
   {
     path: '/progress',
     component: Layout,
-    redirect: '/progress/punch',
+    redirect: '/progress/attendance',
     name: 'Progress',
     meta: { title: '实习过程管理', icon: 'form' },
     children: [
       {
-        path: 'punch',
-        name: 'punch',
-        component: () => import('@/views/punch/punch'),
+        path: 'attendance',
+        name: 'Attendance',
+        component: () => import('@/views/attendance/attendance'),
         meta: { title: '签到管理', icon: 'form' },
       },
       {
-        path: 'remark',
-        name: 'remark',
-        component: () => import('@/views/remark/remark'),
+        path: 'logMarking',
+        name: 'LogMarking',
+        component: () => import('@/views/logMarking/logMarking'),
         meta: { title: '日志批阅', icon: 'form' },
-      },
-      {
-        path: 'summary',
-        name: 'summary',
-        component: () => import('@/views/marking/summary/summary'),
-        meta: { title: '实习总结批阅', icon: 'form' },
-      }
-    ]
-  },
-
-  {
-    path: '/organization',
-    component: Layout,
-    redirect: '/organization/classes',
-    name: 'Organization',
-    meta: { title: '班级群主管理', icon: 'example' },
-    children: [
-      {
-        path: 'classes',
-        name: 'Classes',
-        component: () => import('@/views/classes/classes'),
-        meta: { title: '班级管理', icon: 'table' }
-      },
-      {
-        path: 'groups',
-        name: 'Groups',
-        component: () => import('@/views/groups/groups'),
-        meta: { title: '群主管理', icon: 'tree' }
-      }
-    ]
-  },
-
-  {
-    path: '/internship',
-    component: Layout,
-    redirect: '/internship/planning',
-    name: 'Internship',
-    meta: { title: '实习计划管理', icon: 'example' },
-    children: [
-      {
-        path: 'planning',
-        name: 'Planning',
+      }, {
+        path: 'internshipSummary',
+        name: 'InternshipSummary',
+        component: () => import('@/views/internship/summary/summary.vue'),
+        meta: {
+          title: '实习总结批阅',
+          icon: 'form'
+        }
+      }, {
+        path: 'internshipPlanning',
+        name: 'InternshipPlanning',
         component: () => import('@/views/internship/planning/planning.vue'),
-        meta: { title: '实习计划制定', icon: 'table' }
-      },
-      {
-        path: 'verify',
-        name: 'Verify',
-        component: () => import('@/views/internship/verify/verify.vue'),
-        meta: { title: '实习计划审核', icon: 'tree' }
-      }
-    ]
-  },
-  
-
-  {
-    path: '/trainingRoom',
-    component: Layout,
-    redirect: '/trainingRoom/table',
-    name: 'Training',
-    meta: { title: '实训室', icon: 'example' },
-    children: [
-      {
-        path: 'table',
-        name: 'Table',
-        component: () => import('@/views/room/room'),
-        meta: { title: '实训室管理', icon: 'table' }
-      },
-      {
-        path: 'reserve',
-        name: 'Reserve',
-        component: () => import('@/views/reserve/reserve'),
-        meta: { title: '实训室预约', icon: 'tree' }
-      }
-    ]
-  },
-
-  {
-    path: '/example',
-    component: Layout,
-    redirect: '/example/table',
-    name: 'Example',
-    meta: { title: '通知公告', icon: 'message' },
-    children: [
-      {
-        path: 'table',
-        name: 'Table',
-        component: () => import('@/views/table/index'),
-        meta: { title: '收到的通知', icon: 'table' }
-      },
-      {
-        path: 'tree',
-        name: 'Tree',
-        component: () => import('@/views/tree/index'),
-        meta: { title: '实习文件', icon: 'tree' }
+        meta: {
+          title: '实习计划批阅',
+          icon: 'form'
+        }
+      }, {
+        path: 'internshipFinish',
+        name: 'InternshipFinish',
+        component: () => import('@/views/internship/finish/finish.vue'),
+        meta: {
+          title: '实习结束申请',
+          icon: 'form'
+        }
       }
     ]
   },

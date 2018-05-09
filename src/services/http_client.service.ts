@@ -1,4 +1,6 @@
 import axios, { AxiosResponse } from 'axios';
+import { getToken } from '../utils/auth.ts';
+import { request } from 'https';
 
 export interface IResponse<T> {
   code: number
@@ -11,6 +13,11 @@ const instance = axios.create({
   baseURL: '/api',
   timeout: 15000
 });
+
+instance.interceptors.request.use((request) => {
+  request.headers.token = getToken();
+  return request
+})
 
 export class HTTP {
   async get<T>(url: string):Promise<IResponse<T>>{
@@ -25,6 +32,15 @@ export class HTTP {
   async post<T>(url: string, query?: any):Promise<IResponse<T>> {
     try {
       const response: AxiosResponse<IResponse<T>> = await instance.post(url, query);
+      return this.extractData(response)
+    } catch (e) {
+      throw e
+    }
+  }
+
+  async put<T>(url: string, query?: any, config?: any):Promise<IResponse<T>> {
+    try {
+      const response: AxiosResponse<IResponse<T>> = await instance.put(url, query)
       return this.extractData(response)
     } catch (e) {
       throw e

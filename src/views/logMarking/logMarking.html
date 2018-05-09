@@ -1,0 +1,95 @@
+<div class="cp-logMarking">
+  <el-card class="table-searchBar">
+    <form-builder :schema="schema" :model="model">
+      <el-form-item slot="suffix">
+        <el-button type="primary" @click="search">查询</el-button>
+      </el-form-item>
+    </form-builder>
+  </el-card>
+  
+  <el-card style="margin-top: 15px">
+    <cp-summary :summaryList="summaryData"></cp-summary>
+  </el-card>
+
+  <el-card style="margin-top: 15px">
+    <el-tabs @tab-click="onTabClick">
+      <el-tab-pane>
+        <el-badge :value="summaryResponse.normal" :max="99" slot="label">
+          已提交
+        </el-badge>
+        <el-table :data="logMarkingList" @row-click="onRowClick">
+          <el-table-column label="学生姓名">
+            <template slot-scope="scope">
+              {{scope.row.student_name}}
+            </template>
+          </el-table-column>
+          <!-- <el-table-column label="报告日期">
+            <template slot-scope="scope">
+              {{yyy-mm-dd}}
+            </template>
+          </el-table-column> -->
+          <el-table-column label="状态">
+            <template slot-scope="scope">
+              <el-tag>{{scope.row.comment_status}}</el-tag>
+            </template>
+          </el-table-column>
+          <el-table-column 
+            v-for="(item, index) in logMarkingService.titles" 
+            :key="index"
+            :label="item.label"
+            :prop="item.prop"></el-table-column>
+          <el-table-column label="操作">
+            <template slot-scope="scope">
+              <el-button :disabled="scope.row.comment_status == '已批阅'" type="primary" @click="before_comment($event, scope.row)">批阅</el-button>
+            </template>
+          </el-table-column>
+        </el-table>
+      </el-tab-pane>
+      <el-tab-pane label="未提交">
+        <el-badge :value="summaryResponse.undo" :max="99" slot="label">
+            未提交
+        </el-badge>
+        <el-table :data="logMarkingList">
+          <el-table-column label="学生姓名">
+            <template slot-scope="scope">
+              {{scope.row.name}}
+            </template>
+          </el-table-column>
+        </el-table>
+      </el-tab-pane>
+    </el-tabs>
+  </el-card>
+
+  <popup :visible="visible" @close="visible = false">
+    <form-builder 
+      :schema="logMarking_schema" 
+      :model="logMarking" 
+      :options="options"
+      :rules="rules"
+      ref="form-builder"
+      >
+      <el-form-item slot="suffix">
+        <el-button :disabled="logMarking.comment_status === '已批阅'" type="primary" @click="comment('form-builder')">批阅</el-button>
+      </el-form-item>
+    </form-builder>
+  </popup>
+
+  <el-dialog
+    title="提示"
+    :visible.sync="dialogVisible"
+    width="30%"
+    >
+    <el-form :rules="rules" :model="logMarking" ref="comment-form">
+      <el-form-item prop="comment_score">
+        <el-input placeholder="请打分" v-model="logMarking.comment_score"></el-input>
+      </el-form-item>
+      <el-form-item prop="comment_content">
+        <el-input type="textarea" placeholder="请输入批语" v-model="logMarking.comment_content"></el-input>
+      </el-form-item>
+    </el-form>
+    <span slot="footer" >
+      <el-button @click="dialogVisible = false">取 消</el-button>
+      <el-button type="primary" @click="comment('comment-form')">确 定</el-button>
+    </span>
+  </el-dialog>
+</div>

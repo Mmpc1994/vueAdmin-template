@@ -1,0 +1,32 @@
+@include b(panel) {
+  & + .cp-panel {
+    margin-top: 2rem;
+  }
+  font-size: 1.6rem;
+  @include e(desc) {
+    margin-top: 10px;
+    margin-bottom: 10px;
+    font-size: 1rem;
+    color: #ccc;
+  }
+  @include e(main) {
+    font-size: 1.5rem;
+    h4 {
+      color: rgb(71, 64, 76);
+    }
+    & > div {
+      height: 1.8rem;
+    }
+    p {
+      margin-left: 1rem;
+      color: rgb(81, 74, 86);
+    }
+  }
+
+  @include e(comment) {
+    position: relative;
+    margin-top: .5em;
+    padding-top: 1em;
+    border-top: 1px solid #ccc;
+  }
+}

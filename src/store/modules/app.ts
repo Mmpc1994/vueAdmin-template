@@ -6,7 +6,8 @@ interface Sidebar {
 }
 
 interface State {
-  sidebar: Sidebar
+  sidebar: Sidebar,
+  journalType: string
 }
 
 const sidebar: Sidebar = {
@@ -14,7 +15,8 @@ const sidebar: Sidebar = {
 }
 
 const state: State = {
-  sidebar
+  sidebar,
+  journalType: '日报'
 }
 
 const app = {
@@ -27,6 +29,9 @@ const app = {
         Cookies.set('sidebarStatus', 0)
       }
       state.sidebar.opened = !state.sidebar.opened
+    },
+    SET_JOURNAL_TYPE: (state: State, type: string)=> {
+      state.journalType = type;
     }
   },
   actions: {

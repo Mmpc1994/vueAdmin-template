@@ -3,61 +3,57 @@
     <el-form autoComplete="on" :model="loginForm" :rules="loginRules" ref="loginForm" label-position="left" label-width="0px"
       class="card-box login-form">
       <h3 class="title">vue-element-admin</h3>
-      <el-form-item prop="username">
+      <el-form-item prop="phone">
         <span class="svg-container svg-container_login">
           <svg-icon icon-class="user" />
         </span>
-        <el-input name="username" type="text" v-model="loginForm.username" autoComplete="on" placeholder="username" />
+        <el-input name="phone" type="text" v-model="loginForm.phone" autoComplete="on" placeholder="phone" />
       </el-form-item>
       <el-form-item prop="password">
         <span class="svg-container">
           <svg-icon icon-class="password"></svg-icon>
         </span>
-        <el-input name="password" :type="pwdType" @keyup.enter.native="handleLogin" v-model="loginForm.password" autoComplete="on"
+        <el-input name="password" :type="pwdType" @keyup.enter.native="submit" v-model="loginForm.password" autoComplete="on"
           placeholder="password"></el-input>
           <span class="show-pwd" @click="showPwd"><svg-icon icon-class="eye" /></span>
       </el-form-item>
       <el-form-item>
-        <el-button type="primary" style="width:100%;" :loading="loading" @click.native.prevent="handleLogin">
+        <el-button type="primary" style="width:100%;" :loading="loading" @click.native.prevent="submit">
           Sign in
         </el-button>
       </el-form-item>
-      <div class="tips">
+      <!-- <div class="tips">
         <span style="margin-right:20px;">username: admin</span>
         <span> password: admin</span>
-      </div>
+      </div> -->
     </el-form>
   </div>
 </template>
 
 <script>
-import { isvalidUsername } from '@/utils/validate'
+import { UserLoginDTO } from '../user/dtos/user-login.dto';
+import { userService } from '../user/user.service';
+import { setToken, setUserInfo } from '@/utils/auth.ts';
+const md5 = require('blueimp-md5');
 
 export default {
   name: 'login',
   data() {
-    const validateUsername = (rule, value, callback) => {
-      if (!isvalidUsername(value)) {
-        callback(new Error('请输入正确的用户名'))
-      } else {
-        callback()
-      }
-    }
-    const validatePass = (rule, value, callback) => {
-      if (value.length < 5) {
-        callback(new Error('密码不能小于5位'))
-      } else {
-        callback()
-      }
-    }
     return {
-      loginForm: {
-        username: 'admin',
-        password: 'admin'
-      },
+      loginForm: new UserLoginDTO(),
       loginRules: {
-        username: [{ required: true, trigger: 'blur', validator: validateUsername }],
-        password: [{ required: true, trigger: 'blur', validator: validatePass }]
+        phone: [{
+          min: 11,
+          max: 11,
+          required: true,
+          trigger: 'blur',
+          massage: '请输入合法手机号'
+        }],
+        password: [{
+          required: true,
+          trigger: 'blur',
+          message: '请输入密码'
+        }]
       },
       loading: false,
       pwdType: 'password'
@@ -71,19 +67,19 @@ export default {
         this.pwdType = 'password'
       }
     },
-    handleLogin() {
-      this.$refs.loginForm.validate(valid => {
+    submit() {
+      const query = Object.assign({}, this.loginForm);
+      query.password = md5(query.password);
+      this.$refs.loginForm.validate(async (valid) => {
         if (valid) {
-          this.loading = true
-          this.$store.dispatch('Login', this.loginForm).then(() => {
-            this.loading = false
-            this.$router.push({ path: '/' })
-          }).catch(() => {
-            this.loading = false
-          })
-        } else {
-          console.log('error submit!!')
-          return false
+          this.loading = true;
+          const response = await userService.login(query);
+          if (response.code === 200) {
+            setToken(response.data.token);
+            setUserInfo(response.data);
+            this.$router.replace('/');
+          }
+          this.loading = false;
         }
       })
     }

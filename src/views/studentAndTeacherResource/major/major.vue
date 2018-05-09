@@ -117,8 +117,11 @@
     async import_major($event: Event) {
       const formData = new FormData()
       formData.append('files', ($event.target as any).files[0])
+      // formData.append('target_type', 'avatar')
+      // formData.append('target_id', '65')
       try {
         const response = await this.majorService.import_major(formData)
+        console.log(123);
         if (response.code === 200) {
           this.$message('导入专业成功')
         }

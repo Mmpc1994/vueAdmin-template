@@ -29,7 +29,7 @@
   @Component({
     mixins: [AbstractField]
   })
-  export default class InputComponent extends Vue {
+  export default class DateComponent extends Vue {
 
     onBlur() {
 

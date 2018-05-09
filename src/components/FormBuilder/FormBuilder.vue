@@ -43,14 +43,16 @@
       return res
     }
 
-    submit() {
-      (this.$refs.formBuilder as any).validate((valid: boolean) => {
-        if (valid) {
-          this.$emit('submit')
-        } else {
-           return false
-        }
+    async submit() {
+      const promise = new Promise((resolve, reject) => {
+        (this.$refs.formBuilder as any).validate((valid: boolean) => {
+          if (valid) {
+            this.$emit('submit')
+          }
+          resolve(valid)
+        })
       })
+      return promise
     }
 
     reset() {

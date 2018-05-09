@@ -88,19 +88,7 @@
           label: 'name',
           children: 'classes'
         },
-        handleItemChange: (val: any[]) => {
-          const query = new ClassQueryDto()
-          query.major_id = val[0]
-          console.log(this);
-          const index = this.majorList.findIndex((major: Major) => {
-            return major.id === val[0]
-          })
-          if (index !== -1) {
-            classService.get_class_list(query).then((resp: IResponse<Class[]>) => {
-              (this.majorList[index] as any).classes = resp.data
-            })
-          }
-        },
+        handleItemChange: this.handleItemChange,
         options: []
       }, {
         type: 'input',

@@ -113,17 +113,17 @@ export class Student {
    /**
     * 户口所在市区
     */
-   hukou_city: string = ''
+   hukou_city?: string = ''
 
    /**
     * 户口所在区县
     */
-   hukou_county: string = ''
+   hukou_county?: string = ''
 
    /**
     * 详细地址
     */
-   hukou_address: string = ''
+   hukou_address?: string = ''
 
    /**
     * 现居所在省份

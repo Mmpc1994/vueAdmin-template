@@ -3,6 +3,11 @@ import isTableColumn  from '../../../../decorators/isTableColumn'
 export class Class {
 
   /**
+   * 
+   */
+  id?: number;
+
+  /**
    * 学生数量
    */
   @isTableColumn({

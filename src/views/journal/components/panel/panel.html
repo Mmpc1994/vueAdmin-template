@@ -1,0 +1,25 @@
+<el-card shadow="hover" class="cp-panel">
+  <header>
+    <h4 slot="header">我的{{type}}</h4>
+    <p class="cp-panel__desc">{{date}}</p>
+  </header>
+  <section class="cp-panel__main">
+    <div layout layout-align="start center">
+      <h4>实习内容</h4>:
+      <p>{{journal.content}}</p>
+    </div>
+    <div layout layout-align="start center">
+      <h4>今日收货</h4>:
+      <p>{{journal.harvest}}</p>
+    </div>
+    <div layout layout-align="start center">
+      <h4>今日反馈</h4>:
+      <p>{{journal.feedback}}</p>
+    </div>
+  </section>
+
+  <div class="cp-panel__comment" layout layout-align="start center" v-if="journal.comment_content">
+    <h5>批阅内容</h5>:
+    <p>{{journal.comment_content}}</p>
+  </div>
+</el-card>
