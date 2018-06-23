@@ -64,18 +64,6 @@ export const constantRouterMap = [
   },
 
   {
-    path: '/school',
-    component: Layout,
-    children: [
-      {
-        path: 'index',
-        name: 'School',
-        component: () => import('@/views/school/school'),
-        meta: { title: '学校管理', icon: 'dashboard' }
-      }
-    ]
-  },
-  {
     path: '/studentAndTeacherResource',
     component: Layout,
     redirect: '/studentAndTeacherResource/major',
@@ -102,90 +90,6 @@ export const constantRouterMap = [
         name: 'Student',
         component: () => import('@/views/studentAndTeacherResource/student/student'),
         meta: { title: '学生管理', icon: 'form' },
-      }
-    ]
-  },
-
-  {
-    path: '/journal',
-    component: Layout,
-    redirect: '/journal/index/read',
-    index: true,
-    name: 'Journal',
-    meta: {
-      name: '教师工作管理',
-      icon: 'dashboard'
-    },
-    children: [
-      {
-        path: 'index',
-        name: 'Index',
-        // redirect: 'index/read',
-        component: () => import('@/views/journal/journal/journal.vue'),
-        meta: { title: '教师工作管理', icon: 'dashboard' },
-        children: [{
-          path: 'read',
-          name: 'Read',
-          component: () => import('@/views/journal/readJournal/readJournal.vue'),
-          meta: {
-            title: '看日志',
-            icon: 'dashboard'
-          }
-        }, {
-          path: 'write',
-          name: 'Write',
-          component: () => import('@/views/journal/writeJournal/writeJournal.vue'),
-          meta: {
-            title: '写日志',
-            icon: 'dashboard'
-          }
-        }]
-      }
-    ]
-  },
-
-  {
-    path: '/progress',
-    component: Layout,
-    redirect: '/progress/attendance',
-    name: 'Progress',
-    meta: { title: '实习过程管理', icon: 'form' },
-    children: [
-      {
-        path: 'attendance',
-        name: 'Attendance',
-        component: () => import('@/views/attendance/attendance'),
-        meta: { title: '签到管理', icon: 'form' },
-      },
-      {
-        path: 'logMarking',
-        name: 'LogMarking',
-        component: () => import('@/views/logMarking/logMarking'),
-        meta: { title: '日志批阅', icon: 'form' },
-      }, {
-        path: 'internshipSummary',
-        name: 'InternshipSummary',
-        component: () => import('@/views/internship/summary/summary.vue'),
-        meta: {
-          title: '实习总结批阅',
-          icon: 'form'
-        }
-      }, {
-        path: 'internshipPlanning',
-        name: 'InternshipPlanning',
-        component: () => import('@/views/internship/planning/planning.vue'),
-        meta: {
-          title: '实习计划批阅',
-          icon: 'form'
-        }
-      }, {
-        path: 'internshipFinish',
-        name: 'InternshipFinish',
-        component: () => import('@/views/internship/finish/finish.vue'),
-        meta: {
-          title: '实习结束申请',
-          icon: 'form'
-        }
       }
     ]
   },
