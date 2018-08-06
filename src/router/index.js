@@ -51,49 +51,6 @@ export const constantRouterMap = [
   // },
 
   {
-    path: '/authority',
-    component: Layout,
-    children: [
-      {
-        path: 'index',
-        name: 'Authority',
-        component: () => import('@/views/authority/authority'),
-        meta: { title: '权限管理', icon: 'dashboard' }
-      }
-    ]
-  },
-
-  {
-    path: '/studentAndTeacherResource',
-    component: Layout,
-    redirect: '/studentAndTeacherResource/major',
-    name: 'StudentAndTeacherResource',
-    meta: { title: '师生资源管理', icon: 'form' },
-    children: [
-      {
-        path: 'major',
-        name: 'Major',
-        component: () => import('@/views/studentAndTeacherResource/major/major'),
-        meta: { title: '专业管理', icon: 'form' },
-      }, {
-        path: 'class',
-        name: 'Class',
-        component: () => import('@/views/studentAndTeacherResource/class/class'),
-        meta: { title: '班级管理', icon: 'form' },
-      }, {
-        path: 'teacher',
-        name: 'Teacher',
-        component: () => import('@/views/studentAndTeacherResource/teacher/teacher'),
-        meta: { title: '教师管理', icon: 'form' },
-      }, {
-        path: 'student',
-        name: 'Student',
-        component: () => import('@/views/studentAndTeacherResource/student/student'),
-        meta: { title: '学生管理', icon: 'form' },
-      }
-    ]
-  },
-  {
     path: '/test',
     component: Layout,
     children: [
@@ -101,7 +58,7 @@ export const constantRouterMap = [
         path: 'index',
         name: 'Test',
         component: () => import('@/views/test/test'),
-        meta: { title: '测试', icon: 'form' }
+        meta: { title: '测试', icon: 'dashboard' }
       }
     ]
   },

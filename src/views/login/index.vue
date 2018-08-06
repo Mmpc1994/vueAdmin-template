@@ -68,20 +68,22 @@ export default {
       }
     },
     submit() {
-      const query = Object.assign({}, this.loginForm);
-      query.password = md5(query.password);
-      this.$refs.loginForm.validate(async (valid) => {
-        if (valid) {
-          this.loading = true;
-          const response = await userService.login(query);
-          if (response.code === 200) {
-            setToken(response.data.token);
-            setUserInfo(response.data);
-            this.$router.replace('/');
-          }
-          this.loading = false;
-        }
-      })
+      this.$router.replace('/');
+
+      // const query = Object.assign({}, this.loginForm);
+      // query.password = md5(query.password);
+      // this.$refs.loginForm.validate(async (valid) => {
+      //   if (valid) {
+      //     this.loading = true;
+      //     const response = await userService.login(query);
+      //     if (response.code === 200) {
+      //       setToken(response.data.token);
+      //       setUserInfo(response.data);
+      //       this.$router.replace('/');
+      //     }
+      //     this.loading = false;
+      //   }
+      // })
     }
   }
 }

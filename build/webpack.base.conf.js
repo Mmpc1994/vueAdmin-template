@@ -47,7 +47,7 @@ module.exports = {
         options: vueLoaderConfig
       },
       {
-        test: /\.tsx?$/,
+        test: /\.(tsx|js|ts)?$/,
         loader: 'ts-loader',
         exclude: /node_modules/,
         options: {
