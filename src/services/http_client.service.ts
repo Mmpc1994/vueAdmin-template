@@ -20,18 +20,18 @@ instance.interceptors.request.use((request) => {
 })
 
 export class HTTP {
-  async get<T>(url: string):Promise<IResponse<T>>{
+  async get<T>(url: string, config?: any):Promise<IResponse<T>>{
     try {
-      const response: AxiosResponse<IResponse<T>> = await instance.get(url);
+      const response: AxiosResponse<IResponse<T>> = await instance.get(url, config);
       return this.extractData(response)
     } catch (e) {
       throw e
     }
   }
 
-  async post<T>(url: string, query?: any):Promise<IResponse<T>> {
+  async post<T>(url: string, query?: any, config?: any):Promise<IResponse<T>> {
     try {
-      const response: AxiosResponse<IResponse<T>> = await instance.post(url, query);
+      const response: AxiosResponse<IResponse<T>> = await instance.post(url, query, config);
       return this.extractData(response)
     } catch (e) {
       throw e

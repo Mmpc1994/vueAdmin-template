@@ -29,6 +29,7 @@
   "devDependencies": {
     "@types/lodash": "^4.14.106",
     "@types/node": "^9.4.6",
+    "@types/js-cookie": "^2.1.0",
     "autoprefixer": "7.2.3",
     "babel-core": "6.26.0",
     "babel-eslint": "8.0.3",

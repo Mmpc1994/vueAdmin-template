@@ -1,6 +1,20 @@
 export class UserLoginDTO {
-  phone: string = '';
+  userName: string = '';
   password: string = '';
+}
+
+
+export class UserSignUpDTO {
+  code:string = ''
+  companyMobile:string = ''
+  companyName:string = ''
+  email:string = ''
+  name:string = ''
+  password:string = ''
+  passwordConfirm: string = ''
+  phone:string = ''
+  roles: string[] = ['ROLE_CUSTOMER']
+  status: number;
 }
 
 export interface IUser {
