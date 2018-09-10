@@ -1,0 +1,44 @@
+<div class="app-container">
+  <div class="table-searchBar">
+    <form-builder :schema="query_schema">
+      <el-form-item slot="suffix">
+        <el-button type="primary" @clcik="search(1)">查询</el-button>
+      </el-form-item>
+    </form-builder>
+  </div>
+
+  <div>
+    <el-table :data="dataList">
+      <el-table-column label="代理商名称" prop="companyName"></el-table-column>
+      <el-table-column label="联系人姓名" prop="name"></el-table-column>
+      <el-table-column label="联系人手机" prop="companyMobile"></el-table-column>
+      <el-table-column label="邮箱"      prop="email"></el-table-column>
+      <el-table-column label="余额"      prop="balance"></el-table-column>
+      <el-table-column label="状态">
+        <template slot-scope="scope">
+          <el-tag v-if="scope.row.status === 2">已禁用</el-tag>
+          <el-tag v-if="scope.row.status === 1">已启用</el-tag>
+          <el-tag v-if="scope.row.status === 0">等待审核</el-tag>
+        </template>
+      </el-table-column>
+      <el-table-column label="地址"      prop="address"></el-table-column>
+      <el-table-column label="操作" width="300px">
+        <template slot-scope="scope">
+          <el-button v-if="scope.row.status === 1" type="danger"  @click="updateStatus(scope.row, false)">禁用</el-button>
+          <el-button v-if="scope.row.status === 2" type="success" @click="updateStatus(scope.row, true)">启用</el-button>
+          <el-button v-if="scope.row.status === 0" type="success" @click="approve(scope.row)">审核</el-button>
+        </template>
+      </el-table-column>
+    </el-table>
+    <el-pagination
+      style="margin-top: 15px"
+      @current-change="search"
+      background
+      layout="prev, pager, next"
+      :total="total">
+    </el-pagination>
+  </div>
+  <PopupComponent :visible="visible" @close="visible = false">
+    <form-builder :schema="schema" :options="options" @submit="save"></form-builder>
+  </PopupComponent>
+</div>

@@ -20,6 +20,10 @@ export class UserService {
   async getUserInfo():Promise<IResponse<User>> {
     return await http.get<User>('/users')
   }
+
+  async update(query: User):Promise<IResponse<any>> {
+    return await http.put(`/users/${query.id}`, query)
+  }
 }
 
 export const userService = new UserService();

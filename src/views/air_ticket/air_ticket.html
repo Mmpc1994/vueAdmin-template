@@ -1,0 +1,154 @@
+<div class="app-container">
+  <div class="table-searchBar">
+    <form-builder :schema="query_schema">
+      <el-form-item slot="suffix">
+        <el-button type="primary" @click="search(1)">查询</el-button>
+      </el-form-item>
+    </form-builder>
+  </div>
+  <div>
+    <el-radio-group v-model="query.orderStatus" @change="onStatusChange">
+      <el-radio-button v-for="item in orderType" :label="item.value">{{item.label}}</el-radio-button>
+    </el-radio-group>
+  </div>
+  <div>
+    <!-- <el-button type="warning" @click="visible = true">新增</el-button> -->
+    <el-table :data="dataList">
+      <el-table-column label="代理商名称">
+        <template slot-scope="scope">
+          {{scope.row.companyName}}
+        </template>
+      </el-table-column>
+      <el-table-column label="联系人手机"  prop="companyMobile"></el-table-column>
+      <el-table-column label="订单号"      prop="serialNumber"></el-table-column>
+      <el-table-column label="今日通订单号" prop="orderId"></el-table-column>
+      <el-table-column label="去程"        >
+        <template slot-scope="scope">
+          {{scope.row.voyages[0].depAirportCh}} - {{scope.row.voyages[0].arrAirportCh}}
+        </template>
+      </el-table-column>
+      <el-table-column label="航空公司">
+        <template slot-scope="scope">
+          {{scope.row.voyages[0].carrierCh}}
+        </template>
+      </el-table-column>
+      <el-table-column label="航班号">
+        <template slot-scope="scope">
+          {{scope.row.voyages[0].flightNo}}
+        </template>
+      </el-table-column>
+      <el-table-column label="舱位">
+        <template slot-scope="scope">
+          <span>{{scope.row.voyages[0].cabin}}</span>
+        </template>
+      </el-table-column>
+      <el-table-column label="乘客">
+        <template slot-scope="scope">
+          <span v-for="item in scope.row.passengerNames">{{item}}</span>
+        </template>
+      </el-table-column>
+      <el-table-column label="订单金额">
+        <template slot-scope="scope">
+          {{scope.row.totalMoney}}
+        </template>
+      </el-table-column>
+      <el-table-column label="订单状态">
+        <template slot-scope="scope">
+          <el-tag>{{AIR_TICKET_STATUS[scope.row.orderStatus]}}</el-tag>
+        </template>
+      </el-table-column>
+      <el-table-column label="创建时间"></el-table-column>
+      <el-table-column label="操作">
+        <template slot-scope="scope">
+          <el-button type="success" v-if="scope.row.orderStatus === 21" @click="approve(scope.row)">审核</el-button>
+        </template>
+      </el-table-column>
+    </el-table>
+    <el-pagination
+      style="margin-top: 15px"
+      @current-change="search"
+      background
+      layout="prev, pager, next"
+      :total="total">
+    </el-pagination>
+    <PopupComponent :visible="visible" @close="visible = false">
+      <el-form :label="true" label-width="100px">
+        <h4>基本信息</h4>
+        <el-form-item label="改签费">
+          <el-input v-model="changeQuery.changePayMoney" type="number"></el-input>
+        </el-form-item>
+        <el-form-item label="服务费">
+          <el-input v-model="changeQuery.serviceCharge"  type="number"></el-input>
+        </el-form-item>
+        <el-form-item label="改签支付时间">
+          <el-input v-model="changeQuery.minutes"></el-input>
+        </el-form-item>
+
+        <el-form-item label="是否升舱">
+          <el-radio :label="true"  v-model="changeQuery.isCabinLift">是</el-radio>
+          <el-radio :label="false" v-model="changeQuery.isCabinLift">否</el-radio>
+        </el-form-item>
+        
+        <h4>乘客信息</h4>
+        <div v-for="(item, index) in model.tickets">
+          <el-form-item>
+            <el-tag >{{item.passengerName}}</el-tag>
+          </el-form-item>
+          <el-form-item label="票号">
+            <el-input v-model="changeQuery.ticketInfoList[index].ticketNo"></el-input>
+          </el-form-item>
+        </div>
+
+        <h4>机票信息</h4>
+        <el-form-item label="票面价">
+          <el-input v-model="ticketInfo.ticketPrice" type="number"></el-input>
+        </el-form-item>
+
+        <!-- <el-form-item label="销售价">
+          <el-input v-model="ticketInfo.salePrice"></el-input>
+        </el-form-item> -->
+        
+        <h4>航班信息</h4>
+        <div v-for="(item, index) in changeQuery.voyages" :key="index">
+          <h5>{{index === 0 ? '去程' : '返程'}}</h5>
+          <el-form-item label="出发日期">
+            <el-input v-model="item.depDate"></el-input>
+          </el-form-item>
+          <el-form-item label="出发时间">
+            <el-input v-model="item.depTime"></el-input>
+          </el-form-item>
+          <el-form-item label="出发机场">
+            <el-input v-model="item.depAirportCh"></el-input>
+          </el-form-item>
+          <el-form-item label="出发航站楼">
+            <el-input v-model="item.depTerminal"></el-input>
+          </el-form-item>
+          <el-form-item label="航班号">
+            <el-input v-model="item.flightNo"></el-input>
+          </el-form-item>
+          <el-form-item label="航空公司">
+            <el-input v-model="item.carrierCh"></el-input>
+          </el-form-item>
+          <el-form-item label="仓位">
+            <el-input v-model="item.cabin"></el-input>
+          </el-form-item>
+          <el-form-item label="到达日期">
+            <el-input v-model="item.arrDate"></el-input>
+          </el-form-item>
+          <el-form-item label="到达时间">
+            <el-input v-model="item.arrTime"></el-input>
+          </el-form-item>
+          <el-form-item label="到达机场">
+            <el-input v-model="item.arrAirportCh"></el-input>
+          </el-form-item>
+          <el-form-item label="到达航站楼">
+            <el-input v-model="item.arrTerminal"></el-input>
+          </el-form-item>
+        </div>
+        <el-form-item>
+          <el-button type="primary" @click="submit">生成支付链接</el-button>
+        </el-form-item>
+      </el-form>
+    </PopupComponent>
+  </div>
+</div>

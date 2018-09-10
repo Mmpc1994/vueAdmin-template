@@ -1,0 +1,13 @@
+@include b(change) {
+  width: 100%;
+  border-collapse:collapse;
+  border-radius: 8px;
+  td {
+    padding: 5px;
+  }
+  @include e(input) {
+    border: none;
+    border-bottom: 1px solid #ccc;
+    outline: none;
+  }
+}

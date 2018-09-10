@@ -1,0 +1,8 @@
+@include b(ordersearch) {
+  margin-bottom: 15px;
+  @include e(main) {
+    background-color: rgb(249, 246, 227);
+    padding: 30px;
+    margin-top: 15px;
+  }
+}

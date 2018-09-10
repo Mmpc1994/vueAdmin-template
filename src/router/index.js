@@ -25,17 +25,17 @@ export const constantRouterMap = [
   { path: '/login', component: () => import('@/views/login/index'), hidden: true },
   { path: '/404', component: () => import('@/views/404'), hidden: true },
 
-  {
-    path: '/',
-    component: Layout,
-    redirect: '/dashboard',
-    hidden: true,
-    children: [{
-      path: 'dashboard',
-      name: 'Dashboard',
-      component: () => import('@/views/dashboard/index')
-    }]
-  },
+  // {
+  //   path: '/',
+  //   component: Layout,
+  //   redirect: '/dashboard',
+  //   hidden: true,
+  //   children: [{
+  //     path: 'dashboard',
+  //     name: 'Dashboard',
+  //     component: () => import('@/views/dashboard/index')
+  //   }]
+  // },
 
   // {
   //   path: '/dashboard',
@@ -49,20 +49,31 @@ export const constantRouterMap = [
   //     }
   //   ]
   // },
-  
-
   {
-    path: '/test',
+    path: '/agent',
     component: Layout,
     children: [
       {
         path: 'index',
-        name: 'Test',
-        component: () => import('@/views/test/test'),
-        meta: { title: '测试', icon: 'dashboard' }
+        name: 'Anget',
+        component: () => import('@/views/agent/agent'),
+        meta: { title: '代理商管理', icon: 'dashboard' }
       }
     ]
   },
+  {
+    path: '/airTicket',
+    component: Layout,
+    children: [
+      {
+        path: 'index',
+        name: 'AirTicket',
+        component: () => import('@/views/air_ticket/air_ticket'),
+        meta: { title: '机票订单', icon: 'form' }
+      }
+    ]
+  },
+
 
   { path: '*', redirect: '/404', hidden: true }
 ]

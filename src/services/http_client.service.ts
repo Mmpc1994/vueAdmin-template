@@ -1,6 +1,7 @@
 import axios, { AxiosResponse } from 'axios';
-import { getToken } from '../utils/auth.ts';
-import { request } from 'https';
+import store from '../store';
+import  router  from '../router';
+import { Message } from 'element-ui'
 
 export interface IResponse<T> {
   code: number
@@ -10,13 +11,31 @@ export interface IResponse<T> {
 }
 
 const instance = axios.create({
-  baseURL: '/api',
+  baseURL: '/b2b/api',
   timeout: 15000
 });
 
-instance.interceptors.request.use((request) => {
-  request.headers.token = getToken();
-  return request
+instance.interceptors.request.use((config) => {
+  if (store.getters.userToken) {
+    config.headers.Authorization = 'cat ' + store.getters.userToken;
+  }
+  return config
+})
+
+instance.interceptors.response.use((response) => {
+  if (response.data.code === 401) {
+    console.log('用户没有登入');
+    router.replace({
+      name: 'Login'
+    })
+  } else if (response.data.code === 411) {
+    console.log('token 过期');
+    store.commit('SET_USER_TOKEN', '');
+    router.replace({
+      name: 'Login'
+    });
+  }
+  return response
 })
 
 export class HTTP {
@@ -31,7 +50,7 @@ export class HTTP {
 
   async post<T>(url: string, query?: any, config?: any):Promise<IResponse<T>> {
     try {
-      const response: AxiosResponse<IResponse<T>> = await instance.post(url, query, config);
+      const response: AxiosResponse<IResponse<T>> = await instance.post(url, query);
       return this.extractData(response)
     } catch (e) {
       throw e
@@ -49,6 +68,9 @@ export class HTTP {
 
 
   private extractData<T>(res: AxiosResponse):IResponse<T> {
+    if (res.data.code !== 200) {
+      Message(res.data.message)
+    }
     return res.data
   }
   private errorHandler(error: any) {

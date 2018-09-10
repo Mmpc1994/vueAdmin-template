@@ -15,4 +15,5 @@ export class User {
   phone: string;
   roles: any[];
   username: string;
+  status: number;
 }
