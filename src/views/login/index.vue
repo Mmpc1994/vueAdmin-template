@@ -2,7 +2,7 @@
   <div class="login-container">
     <el-form autoComplete="on" :model="loginForm" :rules="loginRules" ref="loginForm" label-position="left" label-width="0px"
       class="card-box login-form">
-      <h3 class="title">海行旅行</h3>
+      <h3 class="title">同业后台</h3>
       <el-form-item prop="userName">
         <span class="svg-container svg-container_login">
           <svg-icon icon-class="user" />
@@ -22,9 +22,9 @@
           登入
         </el-button>
       </el-form-item>
-      <div style="text-align: right">
+      <!-- <div style="text-align: right">
         <a @click="$router.push({name: 'SignUp'})">没有账号立即注册</a>
-      </div>
+      </div> -->
     </el-form>
   </div>
 </template>
@@ -42,11 +42,9 @@ export default {
 
       loginRules: {
         userName: [{
-          min: 11,
-          max: 11,
           required: true,
           trigger: 'blur',
-          massage: '请输入合法手机号'
+          massage: '请输入账号'
         }],
         password: [{
           required: true,

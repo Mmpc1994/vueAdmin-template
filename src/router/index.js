@@ -73,6 +73,46 @@ export const constantRouterMap = [
       }
     ]
   },
+  {
+    path: '/service',
+    component: Layout,
+    children: [
+      {
+        path: 'index',
+        name: 'ServiceCharges',
+        component: () => import('@/views/service_charges/service_charges.vue'),
+        meta: { title: '服务费管理', icon: 'form' }
+      }
+    ]
+  },
+  {
+    path: '/reportForm',
+    component: Layout,
+    meta: { title: '财务报表', icon: 'form' },
+    children: [
+      {
+        path: 'consume',
+        name: 'Consume',
+        component: () => import('@/views/report_form/consume/consume'),
+        meta: { title: '消费明细'},
+      }, {
+        path: 'ledger',
+        name: 'Ledger',
+        component: () => import('@/views/report_form/consume_ledger/consume_ledger'),
+        meta: { title: '消费总账'},
+      }, {
+        path: 'recharge',
+        name: 'Recharge',
+        component: () => import('@/views/report_form/recharge/recharge'),
+        meta: { title: '充值明细'},
+      }, {
+        path: 'refund',
+        name: 'Refund',
+        component: () => import('@/views/report_form/refund/refund'),
+        meta: { title: '退款明细'},
+      }
+    ]
+  },
 
 
   { path: '*', redirect: '/404', hidden: true }

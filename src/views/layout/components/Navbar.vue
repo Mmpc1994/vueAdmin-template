@@ -2,6 +2,7 @@
   <el-menu class="navbar" mode="horizontal">
     <hamburger class="hamburger-container" :toggleClick="toggleSideBar" :isActive="sidebar.opened"></hamburger>
     <breadcrumb></breadcrumb>
+    <a @click="logout" class="avatar-container">退出</a>
     <!-- <el-dropdown class="avatar-container" trigger="click">
       <div class="avatar-wrapper">
         <img class="user-avatar" :src="avatar+'?imageView2/1/w/80/h/80'">
@@ -42,8 +43,10 @@ export default {
       this.$store.dispatch('ToggleSideBar')
     },
     logout() {
-      this.$store.dispatch('LogOut').then(() => {
-        location.reload() // 为了重新实例化vue-router对象 避免bug
+      this.$store.commit('SET_USER_TOKEN', '');
+      this.$store.commit('SET_USER_INFO', {});
+      this.$router.push({
+        name: 'Login'
       })
     }
   }

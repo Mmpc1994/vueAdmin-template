@@ -1,0 +1,37 @@
+<div>
+  <el-button style="margin: 10px;" type="primary" size="small" @click="visible = true">新增服务费</el-button>
+
+  <el-table :data="serviceChargeList">
+    <el-table-column label="用途">
+      <template slot-scope="scope">
+        {{getUsage(scope.row.usageType)}}
+      </template>
+    </el-table-column>
+    <el-table-column label="类型">
+      <template slot-scope="scope">
+        {{scope.row.type === 1 ? '暗加服务费' : '明加服务费'}}
+      </template>
+    </el-table-column>
+    <el-table-column label="费用" prop="money"></el-table-column>
+    <el-table-column label="是否启用">
+      <template slot-scope="scope">
+        <el-tag>{{scope.row.isActive ? '已启用' : '未启用'}}</el-tag>
+      </template>
+    </el-table-column>
+    <!-- <el-table-column label="创建时间">
+        <template slot-scope="scope">
+          <el-tag>{{scope.row.isActive ? '已启用' : '未启用'}}</el-tag>
+        </template>
+    </el-table-column> -->
+    <el-table-column label="操作">
+      <template slot-scope="scope">
+        <el-button type="text" @click="remove(scope.row)"> 删除</el-button>
+        <el-button type="text" @click="edit(scope.row)">编辑</el-button>
+      </template>
+    </el-table-column>
+  </el-table>
+
+  <popup :visible="visible" @close="visible = false">
+    <form-builder @submit="submit" :options="options" :model="model" :schema="schema"></form-builder>
+  </popup>
+</div>

@@ -66,6 +66,15 @@ export class HTTP {
     }
   }
 
+  async delete<T>(url: string, query?: any, config?: any):Promise<IResponse<T>> {
+    try {
+      const response: AxiosResponse<IResponse<T>> = await instance.delete(url, query)
+      return this.extractData(response)
+    } catch (e) {
+      throw e
+    }
+  }
+
 
   private extractData<T>(res: AxiosResponse):IResponse<T> {
     if (res.data.code !== 200) {

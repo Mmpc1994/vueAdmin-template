@@ -9,7 +9,8 @@
     "start": "npm run dev",
     "build": "node build/build.js",
     "build:report": "npm_config_report=true node build/build.js",
-    "deploy": "scp -r ./b2b_console root@ihisen.isa.qa:/usr/local/webapp/",
+    "deploy": "scp -r ./b2b_console root@106.75.226.182:/usr/local/webapp/",
+    "deploytest": "scp -r ./b2b_console root@ihisen.isa.qa:/usr/local/webapp/",
     "lint": "eslint --ext .js,.vue src",
     "test": "npm run lint"
   },
@@ -19,6 +20,7 @@
     "element-ui": "2.4.6",
     "js-cookie": "2.2.0",
     "lodash": "^4.17.5",
+    "moment": "^2.22.2",
     "normalize.css": "7.0.0",
     "nprogress": "0.2.0",
     "vue": "2.5.10",

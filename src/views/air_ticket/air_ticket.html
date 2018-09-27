@@ -47,9 +47,25 @@
           <span v-for="item in scope.row.passengerNames">{{item}}</span>
         </template>
       </el-table-column>
+      <el-table-column label="起飞抵达时间">
+        <template slot-scope="scope">
+          {{scope.row.voyages[0].depDate + scope.row.voyages[0].depTime}} - 
+          {{scope.row.voyages[0].arrDate + scope.row.voyages[0].arrTime}}
+        </template>
+      </el-table-column>
       <el-table-column label="订单金额">
         <template slot-scope="scope">
           {{scope.row.totalMoney}}
+        </template>
+      </el-table-column>
+      <el-table-column label="改签支付金额">
+        <template slot-scope="scope">
+          {{scope.row.orderStatus === 26 ? scope.row.changePayMoney : ''}}
+        </template>
+      </el-table-column>
+      <el-table-column label="改签服务费用">
+        <template slot-scope="scope">
+          {{scope.row.orderStatus === 26 ? scope.row.serviceCharge : ''}}
         </template>
       </el-table-column>
       <el-table-column label="订单状态">
@@ -57,10 +73,15 @@
           <el-tag>{{AIR_TICKET_STATUS[scope.row.orderStatus]}}</el-tag>
         </template>
       </el-table-column>
-      <el-table-column label="创建时间"></el-table-column>
+      <el-table-column label="创建时间">
+        <template slot-scope="scope">
+          {{dateFormat(scope.row.createTime)}}
+        </template>
+      </el-table-column>
       <el-table-column label="操作">
         <template slot-scope="scope">
           <el-button type="success" v-if="scope.row.orderStatus === 21" @click="approve(scope.row)">审核</el-button>
+          <el-button type="primary" v-if="scope.row.orderStatus === 25" @click="confirm(scope.row)">改签完成</el-button>
         </template>
       </el-table-column>
     </el-table>

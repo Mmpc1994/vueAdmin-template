@@ -1,0 +1,59 @@
+<div>
+  <el-card class="table-searchBar">
+    <ReportSearch :query="query" @search="getRechargeReports"></ReportSearch>
+  </el-card>
+  <el-card style="margin-top: 15px">
+    <el-button type="primary" @click="exportReport">导出</el-button>
+    <el-table style="width: 100%" :data="dataList" @row-click="onRowClick">
+      <el-table-column
+        type="index"
+        width="50">
+      </el-table-column>
+      <el-table-column label="用户名" prop="name">
+
+      </el-table-column>
+      <el-table-column label="账户ID" prop="phone">
+
+      </el-table-column>
+      <el-table-column label="卡类型" prop="cardType">
+
+      </el-table-column>
+      <el-table-column label="卡号" prop="cardNo">
+
+      </el-table-column>
+      <el-table-column label="数量" prop="amount">
+
+      </el-table-column>
+      <el-table-column label="交易类型" prop="tradeType">
+
+      </el-table-column>
+      <el-table-column label="充值金额" prop="amount">
+
+      </el-table-column>
+      <el-table-column label="充值前余额" prop="beforePayAmount">
+
+      </el-table-column>
+      <el-table-column label="充值后余额" prop="afterPayAmount">
+
+      </el-table-column>
+      <el-table-column label="创建时间" prop="createTime">
+      </el-table-column>
+    </el-table>
+    <el-pagination
+      @current-change="getRechargeReports"
+      layout="prev, pager, next"
+      :total="total">
+    </el-pagination>
+  </el-card>
+  <el-dialog
+  title="充值详情"
+  :visible.sync="dialogVisible"
+  width="50%">
+  <el-table :data="rechargeDetailList"">
+    <el-table-column label="卡类型" prop="sourceType"></el-table-column>
+    <el-table-column label="卡号段" prop="cardAsn"></el-table-column>
+    <el-table-column label="卡内金额" prop="price"></el-table-column>
+    <el-table-column label="交易类型" prop="tradeType"></el-table-column>
+  </el-table>
+</el-dialog>
+</div>

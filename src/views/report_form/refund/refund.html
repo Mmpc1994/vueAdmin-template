@@ -1,0 +1,86 @@
+<div>
+  <el-card class="table-searchBar">
+    <form-builder :model="query" :schema="querySchema">
+      <el-form-item slot="suffix">
+        <el-button @click="search(1)" type="primary">查询</el-button>
+      </el-form-item>
+    </form-builder>
+  </el-card>
+
+  <el-card style="margin-top: 15px">
+    <el-button type="primary" @click="exportReport">导出</el-button>
+
+    <el-table style="width: 100%" :data="dataList" @row-click="onRowClick">
+        <el-table-column
+          type="index"
+          width="50">
+        </el-table-column>
+        <el-table-column label="用户名" prop="userName">
+  
+        </el-table-column>
+        <el-table-column label="账户ID" prop="phone">
+  
+        </el-table-column>
+        <el-table-column label="订单号" prop="serialNo">
+  
+        </el-table-column>
+        <el-table-column label="去程/回城" prop="travelType">
+  
+        </el-table-column>
+        <el-table-column label="出发地/抵达地" prop="destination">
+  
+        </el-table-column>
+        <el-table-column label="出行方式" prop="travelWay">
+  
+        </el-table-column>
+        <el-table-column label="航班号/班次号" prop="flightNo">
+  
+        </el-table-column>
+        <el-table-column label="交易途径" prop="usageName">
+  
+        </el-table-column>
+        <el-table-column label="票号" prop="ticketNos"></el-table-column>
+        <el-table-column label="乘客" prop="passengerNames"></el-table-column>
+        <el-table-column label="金额" prop="usageAmount">
+          <template slot-scope="scope">
+            {{Math.abs(scope.row.usageAmount)}}
+          </template>
+        </el-table-column>
+        <el-table-column label="交易类型" prop="tradeType">
+  
+        </el-table-column>
+        <el-table-column label="退款方式" prop="refundWay">
+        </el-table-column>
+        <el-table-column label="退款指向余额" prop="balancePay">
+        </el-table-column>
+        <el-table-column label="余额退款金额" prop="balanceAmount">
+        </el-table-column>
+        <el-table-column label="退款指向微信" prop="wxPay">
+        </el-table-column>
+        <el-table-column label="微信退款金额" prop="wxAmount">
+        </el-table-column>
+        <el-table-column label="退款指向银联" prop="unionPay">
+        </el-table-column>
+        <el-table-column label="银联退款金额" prop="unionAmount">
+        </el-table-column>
+        <el-table-column label="创建时间" prop="createTime">
+        </el-table-column>
+    </el-table>
+    <el-pagination
+      @current-change="search"
+      layout="prev, pager, next"
+      :total="total">
+    </el-pagination>
+  </el-card>
+
+  <el-dialog
+    title="退款详情"
+    :visible.sync="dialogVisible"
+    width="50%">
+    <el-table :data="tradeList">
+      <el-table-column label="航班号/班次号" prop="productName"></el-table-column>
+      <el-table-column label="用途" prop="usageDetail"></el-table-column>
+      <el-table-column label="费用" prop="price"></el-table-column>
+    </el-table>
+  </el-dialog>
+</div>

@@ -9,6 +9,7 @@
   import AirChangeTable from '@/components/AirChangeTable/AirChangeTable.vue';
   import { AirTicketChangeDTO, ITicketInfo } from './dtos/air_ticket_change.dto';
   import { Voyage } from './models/voyage.model';
+  import { DateFormat } from '../../utils';
 
 
   const template = require('./air_ticket.html')
@@ -69,6 +70,25 @@
       }).catch((action: string) => {
         console.log(action);
       })
+    }
+    
+    confirm(row: AirTicketOrderResponseDTO) {
+      this.$confirm('您是否通过该改签?', '提示', {
+        confirmButtonText: '确定',
+        cancelButtonText: '取消',
+        type: 'warning'
+      }).then(async resp => {
+        const query = new AirTicketChangeDTO();
+        query.orderStatus = 26;
+        const response = await airTicketService.createChangeOrder(query, row.id);
+        if (response.code === 200) {
+          this.$message('改签成功');
+        }
+      })
+    }
+
+    dateFormat(date: Date) {
+      return DateFormat(new Date(date), 'yyyy-MM-dd hh:mm:ss')
     }
 
     initChangeData() {
