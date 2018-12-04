@@ -45,6 +45,10 @@
         type: 'input',
         placeholder: '订单号',
         model: 'serialNumber'
+      }, {
+        type: 'input',
+        placeholder: '第三方订单号',
+        model: 'orderId'
       }]
     }
     onStatusChange(val: any) {

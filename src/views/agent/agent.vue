@@ -20,6 +20,7 @@
     total = 0;
     visible = false;
     dataList: User[] = [];
+    query = new AgentQueryRequestDTO();
     query_schema = {
       fields: [{
         type: 'input',
@@ -62,13 +63,19 @@
       }]
     }
     async search(current: number =  1) {
-      const query = new AgentQueryRequestDTO();
-      query.pageNo = current;
-      const response = await agentService.getAgentList(query);
+      console.log(current);
+      // const query = new AgentQueryRequestDTO();
+      // query.pageNo = current;
+      this.query.pageNo = current;
+      const response = await agentService.getAgentList(this.query);
       if (response.code === 200) {
         this.dataList = response.data.content;
         this.total = response.data.totalElements;
       }
+    }
+
+    test() {
+      console.log(1);
     }
 
     updateStatus(row: User, isPass: boolean) {

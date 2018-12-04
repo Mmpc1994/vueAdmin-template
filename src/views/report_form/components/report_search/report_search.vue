@@ -15,6 +15,14 @@
     query: any;
     querySchema = {
       fields: [{
+        type: 'input',
+        model: 'companyName',
+        placeholder: '代理商名称'
+      }, {
+        type: 'input',
+        model: 'userName',
+        placeholder: '用户名'
+      }, {
         type: 'date',
         model: 'startDate',
         placeholder: '开始时间'

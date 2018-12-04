@@ -72,13 +72,18 @@ export default {
           if (response.code === 200) {
             this.$store.commit('SET_USER_TOKEN', response.data);
             userService.getUserInfo().then(resp => {
-              if (resp.code === 200) {
-                this.$store.commit('SET_USER_INFO', resp.data);
+              if (resp.code === 200 && resp.data.roles.findIndex(val => {
+                return val.name === 'ROLE_BTB_ADMIN'
+              }) > -1) {
                 this.loading = false;
                 this.$message('登入成功');
                 this.$router.replace({
                   name: 'AirTicket'
                 });
+              } else if (resp.code === 200  && resp.data.roles.findIndex(val => {
+                return val.name === 'ROLE_BTB_ADMIN'
+              }) === -1) {
+                this.$message('该角色无法登入');
               }
             })
 

@@ -45,7 +45,7 @@ export default {
     logout() {
       this.$store.commit('SET_USER_TOKEN', '');
       this.$store.commit('SET_USER_INFO', {});
-      this.$router.push({
+      this.$router.replace({
         name: 'Login'
       })
     }
