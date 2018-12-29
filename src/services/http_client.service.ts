@@ -12,7 +12,7 @@ export interface IResponse<T> {
 
 const instance = axios.create({
   baseURL: '/b2b/api',
-  timeout: 15000
+  timeout: 35000
 });
 
 instance.interceptors.request.use((config) => {

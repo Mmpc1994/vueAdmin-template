@@ -3,6 +3,7 @@
     <form-builder :schema="query_schema" :model="query">
       <el-form-item slot="suffix">
         <el-button type="primary" @click="search(1)">查询</el-button>
+        <el-button type="success" @click="download()">导出</el-button>
       </el-form-item>
     </form-builder>
   </div>
@@ -44,7 +45,12 @@
       </el-table-column>
       <el-table-column label="乘客">
         <template slot-scope="scope">
-          <span v-for="item in scope.row.passengerNames">{{item}}</span>
+          <span v-for="item in scope.row.passengerNames">{{item}},</span>
+        </template>
+      </el-table-column>
+      <el-table-column label="乘客人数">
+        <template slot-scope="scope">
+          {{scope.row.passengerNames && scope.row.passengerNames.length}}
         </template>
       </el-table-column>
       <el-table-column label="起飞抵达时间">

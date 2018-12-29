@@ -34,6 +34,8 @@ export class AirTicketQueryRequestDTO extends Pagination {
    */
   hit: number = 0;
   keyword: string = '';
+  startTime: string = '';
+  endTime: string = '';
 }
 
 export class AirTicketOrderResponseDTO {

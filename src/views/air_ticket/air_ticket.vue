@@ -10,6 +10,8 @@
   import { AirTicketChangeDTO, ITicketInfo } from './dtos/air_ticket_change.dto';
   import { Voyage } from './models/voyage.model';
   import { DateFormat } from '../../utils';
+  import { download } from '../../utils/dom/download';
+  import { HTTP } from '../../services/http_client.service';
 
 
   const template = require('./air_ticket.html')
@@ -49,6 +51,14 @@
         type: 'input',
         placeholder: '第三方订单号',
         model: 'orderId'
+      }, {
+        type: 'date',
+        placeholder: '开始日期',
+        model: 'startTime'
+      }, {
+        type: 'date',
+        placeholder: '结束日期',
+        model: 'endTime'
       }]
     }
     onStatusChange(val: any) {
@@ -105,6 +115,21 @@
         Object.assign(voyage, val);
         this.changeQuery.voyages.push(voyage);
       })
+    }
+
+    download() {
+      const query = Object.assign({}, this.query);
+      delete query.pageNo;
+      delete query.pageSize;
+      if (query.endTime) {
+        query.endTime = DateFormat(new Date(query.endTime), 'yyyy-MM-dd hh:mm:ss');
+      }
+      if (query.startTime) {
+        query.startTime = DateFormat(new Date(query.startTime), 'yyyy-MM-dd hh:mm:ss');
+      }
+      location.href = `/api/airs/actions/export${HTTP.encodeSearchParams(query)}`;
+
+      // download(`/api/airs/actions/export${HTTP.encodeSearchParams(query)}`);
     }
 
     async submit() {
